@@ -1,0 +1,154 @@
+{
+  "total_cases": 5,
+  "plan_attempts": 5,
+  "valid_plan_attempts": 5,
+  "plan_validity_rate": 1.0,
+  "plan_sequence_accuracy": 1.0,
+  "expected_behavior_pass_rate": 1.0,
+  "task_success_rate": 1.0,
+  "replan_rate": 0.0,
+  "tool_failure_case_rate": 0.2,
+  "average_tool_calls_per_case": 1.2,
+  "records": [
+    {
+      "id": "simple_order",
+      "query": "查询订单 ORD-20240115-001 的当前状态。",
+      "plan_valid": true,
+      "initial_plan_tools": [
+        "query_order"
+      ],
+      "expected_plan_tools": [
+        "query_order"
+      ],
+      "plan_sequence_correct": true,
+      "actual_executed_tools": [
+        "query_order"
+      ],
+      "expected_executed_tools": [
+        "query_order"
+      ],
+      "actual_skipped_tools": [],
+      "expected_skipped_tools": [],
+      "reflection_status": "complete",
+      "expected_reflection_status": "complete",
+      "reflection_matches": true,
+      "behavior_pass": true,
+      "tool_failure": false,
+      "error": null
+    },
+    {
+      "id": "shipped_with_logistics",
+      "query": "查询订单 ORD-20240115-001 是否发货，如果已经发货，再查询物流进度，最后总结结果。",
+      "plan_valid": true,
+      "initial_plan_tools": [
+        "query_order",
+        "query_logistics"
+      ],
+      "expected_plan_tools": [
+        "query_order",
+        "query_logistics"
+      ],
+      "plan_sequence_correct": true,
+      "actual_executed_tools": [
+        "query_order",
+        "query_logistics"
+      ],
+      "expected_executed_tools": [
+        "query_order",
+        "query_logistics"
+      ],
+      "actual_skipped_tools": [],
+      "expected_skipped_tools": [],
+      "reflection_status": "complete",
+      "expected_reflection_status": "complete",
+      "reflection_matches": true,
+      "behavior_pass": true,
+      "tool_failure": false,
+      "error": null
+    },
+    {
+      "id": "pending_with_conditional_logistics",
+      "query": "查询订单 ORD-20240120-002 是否发货，如果已经发货，再查询物流进度。",
+      "plan_valid": true,
+      "initial_plan_tools": [
+        "query_order",
+        "query_logistics"
+      ],
+      "expected_plan_tools": [
+        "query_order",
+        "query_logistics"
+      ],
+      "plan_sequence_correct": true,
+      "actual_executed_tools": [
+        "query_order"
+      ],
+      "expected_executed_tools": [
+        "query_order"
+      ],
+      "actual_skipped_tools": [
+        "query_logistics"
+      ],
+      "expected_skipped_tools": [
+        "query_logistics"
+      ],
+      "reflection_status": "complete",
+      "expected_reflection_status": "complete",
+      "reflection_matches": true,
+      "behavior_pass": true,
+      "tool_failure": false,
+      "error": null
+    },
+    {
+      "id": "pending_order_only",
+      "query": "查询订单 ORD-20240120-002 的发货状态。",
+      "plan_valid": true,
+      "initial_plan_tools": [
+        "query_order"
+      ],
+      "expected_plan_tools": [
+        "query_order"
+      ],
+      "plan_sequence_correct": true,
+      "actual_executed_tools": [
+        "query_order"
+      ],
+      "expected_executed_tools": [
+        "query_order"
+      ],
+      "actual_skipped_tools": [],
+      "expected_skipped_tools": [],
+      "reflection_status": "complete",
+      "expected_reflection_status": "complete",
+      "reflection_matches": true,
+      "behavior_pass": true,
+      "tool_failure": false,
+      "error": null
+    },
+    {
+      "id": "unknown_order",
+      "query": "查询订单 ORD-20990101-999 的发货状态。",
+      "plan_valid": true,
+      "initial_plan_tools": [
+        "query_order"
+      ],
+      "expected_plan_tools": [
+        "query_order"
+      ],
+      "plan_sequence_correct": true,
+      "actual_executed_tools": [
+        "query_order"
+      ],
+      "expected_executed_tools": [
+        "query_order"
+      ],
+      "actual_skipped_tools": [],
+      "expected_skipped_tools": [],
+      "reflection_status": "clarify",
+      "expected_reflection_status": "clarify",
+      "reflection_matches": true,
+      "behavior_pass": true,
+      "tool_failure": true,
+      "error": null
+    }
+  ]
+}

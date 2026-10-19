@@ -1,0 +1,42 @@
+[
+  {
+    "id": "simple_order",
+    "query": "查询订单 ORD-20240115-001 的当前状态。",
+    "expected_plan_tools": ["query_order"],
+    "expected_executed_tools": ["query_order"],
+    "expected_skipped_tools": [],
+    "expected_reflection_status": "complete"
+  },
+  {
+    "id": "shipped_with_logistics",
+    "query": "查询订单 ORD-20240115-001 是否发货，如果已经发货，再查询物流进度，最后总结结果。",
+    "expected_plan_tools": ["query_order", "query_logistics"],
+    "expected_executed_tools": ["query_order", "query_logistics"],
+    "expected_skipped_tools": [],
+    "expected_reflection_status": "complete"
+  },
+  {
+    "id": "pending_with_conditional_logistics",
+    "query": "查询订单 ORD-20240120-002 是否发货，如果已经发货，再查询物流进度。",
+    "expected_plan_tools": ["query_order", "query_logistics"],
+    "expected_executed_tools": ["query_order"],
+    "expected_skipped_tools": ["query_logistics"],
+    "expected_reflection_status": "complete"
+  },
+  {
+    "id": "pending_order_only",
+    "query": "查询订单 ORD-20240120-002 的发货状态。",
+    "expected_plan_tools": ["query_order"],
+    "expected_executed_tools": ["query_order"],
+    "expected_skipped_tools": [],
+    "expected_reflection_status": "complete"
+  },
+  {
+    "id": "unknown_order",
+    "query": "查询订单 ORD-20990101-999 的发货状态。",
+    "expected_plan_tools": ["query_order"],
+    "expected_executed_tools": ["query_order"],
+    "expected_skipped_tools": [],
+    "expected_reflection_status": "clarify"
+  }
+]

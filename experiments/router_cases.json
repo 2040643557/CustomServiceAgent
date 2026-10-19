@@ -1,0 +1,50 @@
+[
+  {
+    "query": "推荐一条适合夏天穿的透气长裤",
+    "expected_agent": "presale"
+  },
+  {
+    "query": "这件外套有哪些颜色和尺码？",
+    "expected_agent": "presale"
+  },
+  {
+    "query": "预算300元，有什么性价比高的运动鞋？",
+    "expected_agent": "presale"
+  },
+  {
+    "query": "这个商品的面料是什么？",
+    "expected_agent": "presale"
+  },
+  {
+    "query": "我的订单为什么还没有发货？",
+    "expected_agent": "postsale"
+  },
+  {
+    "query": "物流两天没有更新，帮我查一下",
+    "expected_agent": "postsale"
+  },
+  {
+    "query": "已经申请退款了，钱什么时候到账？",
+    "expected_agent": "postsale"
+  },
+  {
+    "query": "衣服不合身，应该怎么申请退货？",
+    "expected_agent": "postsale"
+  },
+  {
+    "query": "你们发来的商品破损了，我要投诉",
+    "expected_agent": "complaint"
+  },
+  {
+    "query": "客服态度太差，我要求升级处理",
+    "expected_agent": "complaint"
+  },
+  {
+    "query": "商品有严重质量问题，多次联系都没人处理",
+    "expected_agent": "complaint"
+  },
+  {
+    "query": "你们一直推卸责任，我要求赔偿",
+    "expected_agent": "complaint"
+  }
+]

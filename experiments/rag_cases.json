@@ -1,0 +1,62 @@
+[
+  {
+    "query": "商品签收后几天内可以申请无理由退货？",
+    "expected_doc": "退换货政策"
+  },
+  {
+    "query": "质量问题的商品最晚多久可以申请退换货？",
+    "expected_doc": "退换货政策"
+  },
+  {
+    "query": "七天无理由退货的运费由谁承担？",
+    "expected_doc": "退换货政策"
+  },
+  {
+    "query": "退货申请需要经过哪些步骤？",
+    "expected_doc": "退换货政策"
+  },
+  {
+    "query": "钻石会员需要累计消费多少钱？",
+    "expected_doc": "会员权益"
+  },
+  {
+    "query": "白银会员有哪些优惠和服务？",
+    "expected_doc": "会员权益"
+  },
+  {
+    "query": "多少积分可以抵扣一元？",
+    "expected_doc": "会员权益"
+  },
+  {
+    "query": "北京普通快递通常几天送到？",
+    "expected_doc": "配送说明"
+  },
+  {
+    "query": "一笔订单满多少钱可以免运费？",
+    "expected_doc": "配送说明"
+  },
+  {
+    "query": "物流轨迹超过三天没更新怎么办？",
+    "expected_doc": "配送说明"
+  },
+  {
+    "query": "普通现货商品下单后多久发货？",
+    "expected_doc": "常见问题FAQ"
+  },
+  {
+    "query": "平台支持微信支付和支付宝吗？",
+    "expected_doc": "常见问题FAQ"
+  },
+  {
+    "query": "商品降价后多久之内可以申请价保？",
+    "expected_doc": "常见问题FAQ"
+  },
+  {
+    "query": "退款一般什么时候到账？",
+    "expected_doc": "常见问题FAQ"
+  },
+  {
+    "query": "忘记账户密码了应该怎么办？",
+    "expected_doc": "常见问题FAQ"
+  }
+]

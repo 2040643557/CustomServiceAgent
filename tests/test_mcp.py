@@ -8,7 +8,7 @@
 2. Schema 转换正确性（MCP → OpenAI 格式）
 3. 通过 MCP 调用单个工具
 4. ToolManager 统一调度（MCP 模式）
-5. ToolManager 降级（本地模式）
+5. ToolManager 连接失败降级
 6. 完整 Agent + MCP 端到端（订单查询）
 7. 完整 Agent + MCP 端到端（商品搜索）
 
@@ -31,7 +31,10 @@ from app.schemas.response import CustomerServiceResponse, IntentType  # noqa: E4
 MCP_URL = "http://127.0.0.1:9123/mcp"
 TEST_SESSION = str(ROOT / "app" / "sessions" / "test_mcp_session.json")
 
-EXPECTED_TOOLS = {"query_order", "query_product", "query_logistics", "apply_refund"}
+EXPECTED_TOOLS = {
+    "query_order", "query_product", "query_logistics",
+    "apply_refund", "search_knowledge",
+}
 
 
 def _ok(msg: str):
@@ -63,8 +66,8 @@ def test_mcp_connection():
     client = MCPClient(MCP_URL)
     try:
         tools = client.connect()
-        if len(tools) != 4:
-            _fail(f"期望 4 个工具，实际发现 {len(tools)} 个")
+        if len(tools) != 5:
+            _fail(f"期望 5 个工具，实际发现 {len(tools)} 个")
         tool_names = {t["function"]["name"] for t in tools}
         if tool_names != EXPECTED_TOOLS:
             _fail(f"工具名称不匹配: {tool_names}")
@@ -129,8 +132,8 @@ def test_tool_manager_mcp():
     manager = ToolManager(use_mcp=True, mcp_server_url=MCP_URL)
     try:
         defs = manager.tool_definitions
-        if len(defs) != 4:
-            _fail(f"期望 4 个工具定义，实际 {len(defs)}")
+        if len(defs) != 9:
+            _fail(f"期望 9 个工具定义（5 个远程 + 4 个本地），实际 {len(defs)}")
         _ok(f"ToolManager 加载了 {len(defs)} 个工具")
 
         import json
@@ -143,22 +146,25 @@ def test_tool_manager_mcp():
         manager.close()
 
 
-# ---------- 测试 5：ToolManager 降级（本地模式）----------
-def test_tool_manager_local():
-    print("\n[5/7] ToolManager 降级（本地模式）")
-    manager = ToolManager(use_mcp=False)
+# ---------- 测试 5：ToolManager 连接失败降级 ----------
+def test_tool_manager_fallback():
+    print("\n[5/7] ToolManager 连接失败降级")
+    manager = ToolManager(
+        use_mcp=True,
+        mcp_server_url="http://127.0.0.1:65534/mcp",
+    )
     try:
         defs = manager.tool_definitions
-        if len(defs) != 4:
-            _fail(f"期望 4 个工具定义，实际 {len(defs)}")
-        _ok("本地模式加载 4 个工具")
+        if len(defs) != 9:
+            _fail(f"降级后应加载 9 个本地工具，实际 {len(defs)}")
+        _ok("连接失败后降级本地模式，加载 9 个工具")
 
         import json
         result = manager.execute_tool("query_order", {"order_id": "ORD-20240115-001"})
         data = json.loads(result)
         if not data.get("success"):
-            _fail(f"本地工具调用失败: {data}")
-        _ok("本地模式工具调用正常")
+            _fail(f"降级后本地工具调用失败: {data}")
+        _ok("降级后本地工具调用正常")
     finally:
         manager.close()
 
@@ -222,7 +228,7 @@ def main():
         test_schema_conversion()
         test_mcp_tool_call()
         test_tool_manager_mcp()
-        test_tool_manager_local()
+        test_tool_manager_fallback()
         test_agent_mcp_order()
         test_agent_mcp_product()
     finally:
